@@ -16,7 +16,7 @@ nltk.download('stopwords')
 nltk.download('punkt')
 
 # Replace with your own YouTube Data API key
-API_KEY = 'AIzaSyBVZGQNVfZUsY7zM5BePsTIiikboYxD734'
+API_KEY = ''
 youtube = build('youtube', 'v3', developerKey=API_KEY)
 
 # Load BERT-based sentiment model
