@@ -1,0 +1,39 @@
+import csv
+
+# Data extracted from the BNN Bloomberg article
+data = [
+    {"Date": "-", "Event": "Trump launches a trade war during his first term targeting China with tit-for-tat levies", "Country/Region": "China", "Tariff Details": "-", "Source": "BNN Bloomberg, March 12, 2025"},
+    {"Date": "-", "Event": "Trump threatens tariffs of at least 60% on all Chinese imports during campaign", "Country/Region": "China", "Tariff Details": "60% on Chinese imports", "Source": "BNN Bloomberg, March 12, 2025"},
+    {"Date": "-", "Event": "Trump floats a tariff of up to 20% on all U.S. imports", "Country/Region": "Global", "Tariff Details": "Up to 20% on all imports", "Source": "BNN Bloomberg, March 12, 2025"},
+    {"Date": "January 20, 2025", "Event": "Trump sworn in promises to \"tariff and tax foreign countries to enrich our citizens\"", "Country/Region": "Global", "Tariff Details": "-", "Source": "BNN Bloomberg, March 12, 2025"},
+    {"Date": "January 20, 2025", "Event": "Trump expects to put 25% tariffs on Canada and Mexico starting Feb 1", "Country/Region": "Canada, Mexico", "Tariff Details": "25%", "Source": "BNN Bloomberg, March 12, 2025"},
+    {"Date": "February 1, 2025", "Event": "Trump declines to flesh out plans for taxing Chinese imports immediately", "Country/Region": "China", "Tariff Details": "-", "Source": "BNN Bloomberg, March 12, 2025"},
+    {"Date": "February 10, 2025", "Event": "China imposes 15% tariffs on coal and LNG 10% on crude oil machinery and cars from U.S.", "Country/Region": "United States", "Tariff Details": "15% on coal/LNG, 10% on oil/machinery/cars", "Source": "BNN Bloomberg, March 12, 2025"},
+    {"Date": "March 4, 2025", "Event": "Trump doubles the levy on Chinese imports to 20%", "Country/Region": "China", "Tariff Details": "20% (doubled from previous)", "Source": "BNN Bloomberg, March 12, 2025"},
+    {"Date": "March 12, 2025", "Event": "Trump removes exemptions from 2018 steel tariffs raises aluminum tariffs from 10% to 25%", "Country/Region": "Global", "Tariff Details": "Steel 25%, Aluminum 25%", "Source": "BNN Bloomberg, March 12, 2025"},
+    {"Date": "-", "Event": "Trump announces \"reciprocal\" tariffs to match other countries' tax rates", "Country/Region": "Global", "Tariff Details": "Variable reciprocal", "Source": "BNN Bloomberg, March 12, 2025"},
+    {"Date": "-", "Event": "Canada suspends second wave of retaliatory tariffs worth $125 billion Canadian after $30 billion initial tariffs", "Country/Region": "United States", "Tariff Details": "-", "Source": "BNN Bloomberg, March 12, 2025"},
+    {"Date": "-", "Event": "China retaliates with 15% taxes on U.S. farm products (chicken pork soybeans beef)", "Country/Region": "United States", "Tariff Details": "15% on farm products", "Source": "BNN Bloomberg, March 12, 2025"},
+    {"Date": "-", "Event": "Trump threatens 25% tariffs on all Colombia imports after rejection of U.S. migrant flights", "Country/Region": "Colombia", "Tariff Details": "25%", "Source": "BNN Bloomberg, March 12, 2025"},
+    {"Date": "-", "Event": "Colombia reverses decision accepts migrant flights after Trump's threat", "Country/Region": "Colombia", "Tariff Details": "-", "Source": "BNN Bloomberg, March 12, 2025"},
+    {"Date": "-", "Event": "Recently-postponed levies for some goods from Canada and Mexico after 30-day auto industry pause", "Country/Region": "Canada, Mexico", "Tariff Details": "-", "Source": "BNN Bloomberg, March 12, 2025"}
+]
+
+# Define CSV file name
+csv_file = "trade_war_timeline.csv"
+
+# Define CSV headers
+headers = ["Date", "Event", "Country/Region", "Tariff Details", "Source"]
+
+# Write data to CSV file
+with open(csv_file, mode='w', newline='', encoding='utf-8') as file:
+    writer = csv.DictWriter(file, fieldnames=headers)
+    
+    # Write the header
+    writer.writeheader()
+    
+    # Write the rows
+    for row in data:
+        writer.writerow(row)
+
+print(f"Data has been successfully saved to {csv_file}")
