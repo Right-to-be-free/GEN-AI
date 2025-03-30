@@ -1,0 +1,46 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.metrics import classification_report, confusion_matrix
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load dataset
+df = pd.read_csv(r"C:\Users\rishi\Desktop\Random forest\archive (4)\steps_tracker_dataset.csv")
+
+# Encode the mood labels
+le = LabelEncoder()
+df['mood_encoded'] = le.fit_transform(df['mood'])
+
+# Features and target
+features = ['steps', 'distance_km', 'calories_burned', 'active_minutes', 'sleep_hours', 'water_intake_liters']
+X = df[features]
+y = df['mood_encoded']
+
+# Standardize features
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Train/test split
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+
+# Train logistic regression model
+log_model = LogisticRegression(multi_class='multinomial', solver='lbfgs', max_iter=1000, random_state=42)
+log_model.fit(X_train, y_train)
+
+# Predict
+y_pred = log_model.predict(X_test)
+
+# Evaluation
+print("Classification Report:\n", classification_report(y_test, y_pred, target_names=le.classes_))
+
+# Confusion matrix
+plt.figure(figsize=(8, 6))
+sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt="d",
+            xticklabels=le.classes_, yticklabels=le.classes_, cmap="Purples")
+plt.xlabel("Predicted")
+plt.ylabel("Actual")
+plt.title("Logistic Regression Confusion Matrix")
+plt.tight_layout()
+plt.show()
