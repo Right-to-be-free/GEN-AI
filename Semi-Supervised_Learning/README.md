@@ -58,7 +58,6 @@ Common Interview Questions
 - What are the risks of using pseudo-labels?
 - When would you choose semi-supervised over supervised learning?
 ---
-
 Semi-Supervised Learning - Real Life Examples
 1. Email Classification with Limited Labels
 Problem
@@ -75,6 +74,7 @@ Impact
 Reduced manual labeling cost while improving email filtering accuracy.
 Conclusion
 Semi-supervised learning boosted performance without relying entirely on expensive human-annotated data.
+---
 2. Medical Diagnosis from X-rays with Few Expert Labels
 Problem
 Radiologists label only a small set of X-ray images due to high cost and time.
@@ -86,7 +86,8 @@ Impact
 Achieved similar accuracy to fully labeled datasets with only 20% labeled data.
 Conclusion
 Greatly reduced labeling overhead in medical imaging with scalable accuracy.
-3. Voice Recognition with Partial Transcripts
+---
+4. Voice Recognition with Partial Transcripts
 Problem
 Only some audio files have corresponding transcripts for training a speech-to-text model.
 Solution
@@ -97,7 +98,8 @@ Impact
 Expanded dataset from 10 hours labeled to 100+ hours usable data.
 Conclusion
 SS learning enabled richer speech models in low-resource scenarios.
-4. Product Categorization in E-Commerce
+---
+6. Product Categorization in E-Commerce
 Problem
 Millions of products are uploaded, but only a small portion are manually categorized.
 Solution
@@ -123,4 +125,3 @@ Impact
 Detected hidden fraud with fewer false positives than a purely supervised system.
 Conclusion
 SS learning improved fraud detection when confirmed fraud labels were scarce.
-
