@@ -1,5 +1,5 @@
 ﻿# Reinforcement Learning Guide
-# Reinforcement Learning Guide
+
 
 This project contains a detailed explanation of Reinforcement Learning concepts with one-liner definitions, real-world analogies, and Python code snippets.
 
