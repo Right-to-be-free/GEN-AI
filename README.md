@@ -14,4 +14,3 @@ Each section includes:
 ---
 
 ## 📚 Project Structure
-
