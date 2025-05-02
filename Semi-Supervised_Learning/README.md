@@ -114,6 +114,7 @@ Impact
 Automated product taxonomy improved search and recommendation accuracy.
 Conclusion
 Efficiently expanded product classification coverage using existing data.
+---
 5. Fraud Detection with Incomplete Annotations
 Problem
 Banks often know about only a small set of confirmed fraudulent transactions.
