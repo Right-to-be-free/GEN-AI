@@ -1,0 +1,95 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+import time
+import requests
+from bs4 import BeautifulSoup
+import os
+import csv
+
+# Set up Chrome options
+chrome_options = Options()
+chrome_options.add_argument("--headless")  # Run in headless mode (no browser UI)
+
+# Specify the path to ChromeDriver if not in PATH
+# service = Service('/path/to/chromedriver')  # Uncomment and update path if needed
+driver = webdriver.Chrome(options=chrome_options)  # Add service=service if path specified
+
+# URL to scrape
+url = "https://abcnews.go.com/538/trump-popular/story?id=117620918"
+
+try:
+    # Open the webpage
+    driver.get(url)
+    time.sleep(3)  # Wait for the page to load (adjust as needed)
+
+    # Get the page source
+    page_source = driver.page_source
+
+    # Parse the HTML with BeautifulSoup
+    soup = BeautifulSoup(page_source, 'html.parser')
+
+    # Extract article title
+    title = soup.find('h1').get_text(strip=True) if soup.find('h1') else "No title found"
+    print("Article Title:", title)
+
+    # Extract article content (assuming it's within <p> tags in a main content area)
+    article_body = soup.find('div', class_='entry-content') or soup.find('article')
+    if article_body:
+        paragraphs = article_body.find_all('p')
+        article_text = "\n".join([p.get_text(strip=True) for p in paragraphs])
+        print("\nArticle Content:\n", article_text)
+    else:
+        print("Article content not found.")
+
+    # Extract all links
+    links = soup.find_all('a', href=True)
+    print("\nLinks Found:")
+    for link in links:
+        href = link['href']
+        if href.startswith('http'):  # Filter for external URLs
+            print(f"- {link.get_text(strip=True)}: {href}")
+
+    # Look for attachments (e.g., PDFs, images)
+    attachments = []
+    for link in links:
+        href = link['href']
+        if href.endswith(('.pdf', '.jpg', '.jpeg', '.png')):
+            attachments.append(href)
+
+    # Download attachments
+    if attachments:
+        print("\nDownloading Attachments:")
+        for attachment_url in attachments:
+            filename = attachment_url.split('/')[-1]
+            try:
+                response = requests.get(attachment_url, stream=True)
+                response.raise_for_status()
+                with open(filename, 'wb') as f:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        f.write(chunk)
+                print(f"- Downloaded: {filename}")
+            except requests.RequestException as e:
+                print(f"- Failed to download {attachment_url}: {e}")
+    else:
+        print("\nNo attachments found.")
+
+except Exception as e:
+    print(f"An error occurred: {e}")
+
+finally:
+    # Close the driver
+    driver.quit()
+
+    # Define the CSV file name
+    csv_file = "scraped_ABCNEWS.csv"
+
+    # Write the data to the CSV file
+    # Add this at the end of the script, before driver.quit()
+with open('output.csv', 'w', encoding='utf-8') as f:
+    f.write("Title,Content,Links,Attachments\n")
+    links_str = "|".join([f"{link.get_text(strip=True)}: {link['href']}" for link in links if link['href'].startswith('http')])
+    attachments_str = "|".join([attachment_url.split('/')[-1] for attachment_url in attachments])
+    f.write(f'"{title}","{article_text}","{links_str}","{attachments_str}"\n')
+print("Data saved to output.csv")
