@@ -48,43 +48,25 @@ Summary Comparison Table
 Model		Trend	Seasonality	Complexity	Suitable For
 
 Summary Comparison Table
-Model		Trend	Seasonality	Complexity	Suitable For
+Model		          Trend	     Seasonality	  Complexity	  Suitable For
 
-Naive		❌	❌	Very Low	Baseline
+Naive		           ❌	          ❌          	Very Low	    Baseline
 
-SMA/WMA	❌	❌	Low	Smoothing
+SMA/WMA	           ❌	          ❌	            Low	        Smoothing
 
-SES		❌	❌	Low	No Trend/Seasonality
+SES		             ❌	          ❌	            Low	        No Trend/Seasonality
 
-Holt		✅	❌	Medium	Trend Only
+Holt		           ✅	          ❌	            Medium	    Trend Only
 
-Holt-Winters	✅	✅	Medium	Trend + Seasonality
+Holt-Winters	     ✅	          ✅	            Medium	    Trend + Seasonality
 
-ARIMA		✅	❌	High	Stationary Series
+ARIMA		           ✅	          ❌	            High	      Stationary Series
 
-SARIMA		✅	✅	Higher	Seasonal Series
+SARIMA		         ✅	          ✅	            Higher	    Seasonal Series
 
-Prophet		✅	✅	Medium	Business/Marketing
+Prophet		         ✅	          ✅	            Medium	    Business/Marketing
 
-LSTM/XGBoost	✅	✅	Very High	Complex Patterns
-
-Naive		❌	❌	Very Low	Baseline
-
-SMA/WMA	❌	❌	Low	Smoothing
-
-SES		❌	❌	Low	No Trend/Seasonality
-
-Holt		✅	❌	Medium	Trend Only
-
-Holt-Winters	✅	✅	Medium	Trend + Seasonality
-
-ARIMA		✅	❌	High	Stationary Series
-
-SARIMA		✅	✅	Higher	Seasonal Series
-
-Prophet		✅	✅	Medium	Business/Marketing
-
-LSTM/XGBoost	✅	✅	Very High	Complex Patterns
+LSTM/XGBoost	     ✅	          ✅	            Very High	  Complex Patterns
 
 ---
 Time Series Business Case Studies
