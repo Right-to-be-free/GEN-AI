@@ -47,26 +47,20 @@ Formula: Forecast = Trend + Seasonality + Holiday Effects
 Summary Comparison Table
 Model		Trend	Seasonality	Complexity	Suitable For
 
-Summary Comparison Table
-Model		          Trend	     Seasonality	  Complexity	  Suitable For
+### Summary Comparison Table
 
-Naive		           ❌	          ❌          	Very Low	    Baseline
+| Model          | Trend | Seasonality | Complexity   | Suitable For            |
+|----------------|:-----:|:-----------:|--------------|--------------------------|
+| Naive          | ❌    | ❌          | Very Low     | Baseline                |
+| SMA/WMA        | ❌    | ❌          | Low          | Smoothing               |
+| SES            | ❌    | ❌          | Low          | No Trend/Seasonality    |
+| Holt           | ✅    | ❌          | Medium       | Trend Only              |
+| Holt-Winters   | ✅    | ✅          | Medium       | Trend + Seasonality     |
+| ARIMA          | ✅    | ❌          | High         | Stationary Series       |
+| SARIMA         | ✅    | ✅          | Higher       | Seasonal Series         |
+| Prophet        | ✅    | ✅          | Medium       | Business/Marketing      |
+| LSTM/XGBoost   | ✅    | ✅          | Very High    | Complex Patterns        |
 
-SMA/WMA	           ❌	          ❌	            Low	        Smoothing
-
-SES		             ❌	          ❌	            Low	        No Trend/Seasonality
-
-Holt		           ✅	          ❌	            Medium	    Trend Only
-
-Holt-Winters	     ✅	          ✅	            Medium	    Trend + Seasonality
-
-ARIMA		           ✅	          ❌	            High	      Stationary Series
-
-SARIMA		         ✅	          ✅	            Higher	    Seasonal Series
-
-Prophet		         ✅	          ✅	            Medium	    Business/Marketing
-
-LSTM/XGBoost	     ✅	          ✅	            Very High	  Complex Patterns
 
 ---
 Time Series Business Case Studies
