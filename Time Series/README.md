@@ -50,7 +50,6 @@ SARIMA		✅	✅	Higher	Seasonal Series
 Prophet		✅	✅	Medium	Business/Marketing
 LSTM/XGBoost	✅	✅	Very High	Complex Patterns
 
-
 ---
 Time Series Business Case Studies
 1. Forecasting Monthly Sales for a Retail Chain
