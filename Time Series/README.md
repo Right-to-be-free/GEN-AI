@@ -1,17 +1,17 @@
-Time Series Models – Study Guide
-1. Naive Models
+**Time Series Models – Study Guide**
+**1. Naive Models**
 Naive Forecast:
 Assumes that the future value is equal to the last observed value.
 Formula: ŷₜ₊₁ = yₜ
 Best used as a baseline or for slow-changing series.
-2. Moving Average Models
+**2. Moving Average Models**
 a. Simple Moving Average (SMA):
 Takes the average of the last n observations to smooth out short-term noise.
 Formula: SMAₜ = (1/n) ∑ (from i=0 to n-1) yₜ₋ᵢ
 
 b. Weighted Moving Average (WMA):
 Recent observations are given more importance by assigning weights.
-3. Exponential Smoothing Models
+**3. Exponential Smoothing Models**
 a. Simple Exponential Smoothing (SES):
 Applies to data with no trend or seasonality.
 Formula: ŷₜ₊₁ = αyₜ + (1 - α)ŷₜ
@@ -21,20 +21,20 @@ Extends SES to account for trend.
 
 c. Holt-Winters Model:
 Accounts for both trend and seasonality.
-4. ARIMA (AutoRegressive Integrated Moving Average)
+**4. ARIMA (AutoRegressive Integrated Moving Average)**
 Combines AR (p), I (d), and MA (q) components.
 Used for univariate, stationary time series.
 Example: ARIMA(1,1,1) – One autoregressive, one differencing, one moving average term.
-5. SARIMA (Seasonal ARIMA)
+**5. SARIMA (Seasonal ARIMA)**
 Extends ARIMA to handle seasonality.
 Format: SARIMA(p,d,q)(P,D,Q)[m], where m = seasonal period (e.g., 12 for monthly data).
-6. Machine Learning-Based Models
+**6. Machine Learning-Based Models**
 a. Random Forest / XGBoost:
 Work with engineered features such as lags and rolling stats.
 
 b. LSTM (Long Short-Term Memory):
 Deep learning model ideal for capturing long-term dependencies in sequential data.
-7. Prophet (by Facebook)
+**7. Prophet (by Facebook)**
 Designed for business forecasting with trend, seasonality, and holiday effects.
 Easy to use, handles outliers and missing data well.
 Formula: Forecast = Trend + Seasonality + Holiday Effects
