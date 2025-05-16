@@ -1,0 +1,84 @@
+# forecasting_btc.py
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.tsa.arima.model import ARIMA
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+from prophet import Prophet
+
+# ------------------------------
+# Step 1: Load and Clean Data
+# ------------------------------
+df = pd.read_csv(r"C:\Users\rishi\Desktop\GEN-AI\Time Series\BTC-USD-Historical.csv", skiprows=2)
+df.columns = ['Date', 'Close', 'High', 'Low', 'Open', 'Volume']
+df['Date'] = pd.to_datetime(df['Date'])
+df['Close'] = pd.to_numeric(df['Close'], errors='coerce')
+df = df[['Date', 'Close']].dropna()
+df = df.sort_values('Date')
+df.set_index('Date', inplace=True)
+
+# ------------------------------
+# Step 2: ARIMA Forecast
+# ------------------------------
+arima_model = ARIMA(df['Close'], order=(5, 1, 2))
+arima_result = arima_model.fit()
+arima_forecast = arima_result.forecast(steps=30)
+
+# ------------------------------
+# Step 3: SARIMA Forecast
+# ------------------------------
+sarima_model = SARIMAX(df['Close'], order=(1, 1, 1), seasonal_order=(1, 1, 1, 7))
+sarima_result = sarima_model.fit(disp=False)
+sarima_forecast = sarima_result.forecast(steps=30)
+
+# ------------------------------
+# Step 4: Prophet Forecast
+# ------------------------------
+prophet_model = Prophet(
+    daily_seasonality=True,
+    changepoint_prior_scale=0.5,  # More responsive to trend changes
+    seasonality_mode='multiplicative'  # Good for crypto volatility
+)
+
+# ------------------------------
+prophet_df = df.reset_index().rename(columns={'Date': 'ds', 'Close': 'y'})
+prophet_model = Prophet(daily_seasonality=True)
+prophet_model.fit(prophet_df)
+future = prophet_model.make_future_dataframe(periods=30)
+prophet_forecast = prophet_model.predict(future)
+
+# ------------------------------
+# Step 5: Plot Forecasts
+# ------------------------------
+plt.figure(figsize=(14, 6))
+
+# Last 90 days of actual data
+plt.plot(df.index[-90:], df['Close'][-90:], label='Actual', color='black')
+
+# ARIMA Forecast
+plt.plot(pd.date_range(df.index[-1], periods=30, freq='D'), arima_forecast, label='ARIMA Forecast')
+
+# SARIMA Forecast
+plt.plot(pd.date_range(df.index[-1], periods=30, freq='D'), sarima_forecast, label='SARIMA Forecast')
+
+# Prophet Forecast
+plt.plot(prophet_forecast['ds'][-30:], prophet_forecast['yhat'][-30:], label='Prophet Forecast')
+
+plt.title('BTC-USD Forecast (Next 30 Days)')
+plt.xlabel('Date')
+plt.ylabel('BTC Price (USD)')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show(block=True)
+
+# Save to CSV
+forecast_output = pd.DataFrame({
+    'Date': pd.date_range(df.index[-1], periods=30, freq='D'),
+    'ARIMA': arima_forecast.values,
+    'SARIMA': sarima_forecast.values,
+    'Prophet': prophet_forecast['yhat'][-30:].values
+})
+forecast_output.to_csv('btc_forecast_output.csv', index=False)
+print("📁 Forecast saved to btc_forecast_output.csv")
+plt.savefig("btc_forecast_plot.png", dpi=300)

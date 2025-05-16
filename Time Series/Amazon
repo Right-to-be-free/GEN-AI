@@ -1,0 +1,11 @@
+import yfinance as yf
+
+# Download historical data for Amazon (AMZN)
+amzn = yf.Ticker("AMZN")
+df = amzn.history(period="1y")  # or 'max', '6mo', '1mo', etc.
+
+# Display first few rows
+print(df.head())
+
+# Optionally, save to CSV
+df.to_csv("AMZN_Historical_Data.csv")
