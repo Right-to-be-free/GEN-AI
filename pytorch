@@ -1,0 +1,45 @@
+# pytorch_cats_dogs.py
+import os
+from torchvision import datasets, transforms, models
+from torch.utils.data import DataLoader
+import torch
+from torch import nn, optim
+
+# Paths
+train_dir = r"C:\Users\rishi\Downloads\archive (6)\train"
+test_dir = r"C:\Users\rishi\Downloads\archive (6)\test"
+
+# Transforms
+transform = transforms.Compose([
+    transforms.Resize((128, 128)),
+    transforms.ToTensor()
+])
+
+# Datasets and Loaders
+train_data = datasets.ImageFolder(train_dir, transform=transform)
+test_data = datasets.ImageFolder(test_dir, transform=transform)
+train_loader = DataLoader(train_data, batch_size=32, shuffle=True)
+test_loader = DataLoader(test_data, batch_size=32)
+
+# Model
+model = models.resnet18(pretrained=True)
+model.fc = nn.Linear(model.fc.in_features, 2)
+
+# Loss and Optimizer
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+
+# Training Loop
+for epoch in range(5):
+    running_loss = 0.0
+    for images, labels in train_loader:
+        optimizer.zero_grad()
+        out = model(images)
+        loss = criterion(out, labels)
+        loss.backward()
+        optimizer.step()
+        running_loss += loss.item()
+    print(f"Epoch {epoch+1}, Loss: {running_loss/len(train_loader)}")
+
+# Save
+torch.save(model.state_dict(), 'pytorch_cats_dogs.pth')
