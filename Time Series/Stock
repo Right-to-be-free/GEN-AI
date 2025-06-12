@@ -1,0 +1,11 @@
+import yfinance as yf
+import pandas as pd
+
+# Load historical data for Oscar Health (OSCR)
+oscr = yf.download('OSCR', start='2020-01-01', end='2024-12-31', interval='1d')
+
+# Save to CSV (optional)
+oscr.to_csv("OSCR-Historical.csv")
+
+# Display first few rows
+print(oscr.head())
