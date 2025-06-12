@@ -1,0 +1,32 @@
+# 🐍 Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.log
+
+# 🔒 Secrets
+.env
+
+# 🚫 Local packages and dependencies
+.venv/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# 🔄 IDEs and Editors
+.vscode/
+*.DS_Store
+*.idea/
+
+# 🧪 Runtime/Temp
+*.sqlite
+*.db
+*.csv
+*.json
+*.bak
+processed_files.json
+
+# 🗃️ System files
+Thumbs.db
+Desktop.ini
